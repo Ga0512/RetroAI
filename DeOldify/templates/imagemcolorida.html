@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagem colorida</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style0.css') }}">
+
+    <script>
+        window.addEventListener('load', ()=> {
+            const loader = document.querySelector(".loader");
+
+            loader.classList.add("loader--hidden");
+            
+            document.addEventListener("transitionend", () => {
+                document.body.removeChild(loader);
+            });
+        
+        });
+
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6240072080745593"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div class="container">
+        <div class="content">
+            <h1>Sua imagem está colorida! 🎨</h1>
+            <img src="{{ url_for('static', filename='images/image.png') }}" alt="Imagem" style="width: 60%; height: auto;">
+            <br>
+            <a class="download-button" href="{{ url_for('download') }}">Baixar Imagem 📥</a>
+        </div>
+        <div class="footer">
+            <p>Copyright &copy; 2023 RetroAI</p>
+        </div>
+    </div>
+</body>
+</html>

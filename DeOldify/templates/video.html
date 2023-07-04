@@ -1,0 +1,84 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroAI - Vídeos</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const curiosityElement = document.getElementById('curiosity');
+            const curiosities = [
+            "Use a RetroAI para colorir imagens! 📸🎨",
+                "Use a RetroAI para colorir vídeos! 🎥🎨",
+                "A RetroAI usa Inteligência Artificial Generativa para colorir as imagens e os vídeos.🧠🤖",
+                "Siga-nos no Instagram: @RetroAI",
+                "A IA generativa da RetroAI pinta digitalmente fotos e vídeos antigos, revitalizando memórias de épocas passadas! 🎞️🎨",
+            ];
+            let index = 0;
+
+            setInterval(() => {
+                curiosityElement.innerHTML = curiosities[index];
+                index = (index + 1) % curiosities.length;
+            }, 4000);
+
+            const imageInput = document.getElementById('video-input');
+            const filenameElement = document.getElementById('filename');
+
+            imageInput.addEventListener('change', () => {
+                filenameElement.textContent = imageInput.files[0].name;
+            });
+
+            const form = document.getElementById('upload-form');
+            const colorizeBtn = document.getElementById('colorize-btn');
+
+            colorizeBtn.addEventListener('click', () => {
+                form.submit();
+            });
+        });
+    </script>
+
+    <script>
+        window.addEventListener('load', ()=> {
+            const loader = document.querySelector(".loader");
+
+            loader.classList.add("loader--hidden");
+            
+            document.addEventListener("transitionend", () => {
+                document.body.removeChild(loader);
+            });
+        
+        });
+
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6240072080745593"
+     crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="loader"></div>
+    <div class="container">
+        <div class="content">
+            <h1>RetroAI - Vídeos</h1>
+            <h2>Use a RetroAI para colorir vídeos em preto e branco 🎥</h2>
+            <form  id="upload-form" action="/videocolorido" method="POST" enctype="multipart/form-data">
+                <label for="video-input" class="upload-btn">Faça upload do arquivo 📁</label>
+                <input type="file" name="video" id="video-input" accept="video/*" style="display: none;">
+                <input type="submit" value="Colorir seu vídeo 🎨" class="colorize-btn">
+                <span id="filename"></span>
+            </form>
+            
+            <div class="curiosity">
+                <p id="curiosity">RetroAI - Vídeos</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Copyright &copy; 2023 RetroAI</p>
+        </div>
+    </div>
+</body>
+
+</html>

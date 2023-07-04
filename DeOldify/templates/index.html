@@ -1,0 +1,79 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroAI</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style1.css') }}">
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const curiosityElement = document.getElementById('curiosity');
+            const curiosities = [
+            "Use a RetroAI para colorir imagens! 📸🎨",
+                "Use a RetroAI para colorir vídeos! 🎥🎨",
+                "A RetroAI usa Inteligência Artificial Generativa para colorir as imagens e os vídeos.🧠🤖",
+                "Siga-nos no Instagram: @RetroAI",
+                "A IA generativa da RetroIA pinta digitalmente fotos e vídeos antigos, revitalizando memórias de épocas passadas! 🎞️🎨",
+            ];
+            let index = 0;
+
+            setInterval(() => {
+                curiosityElement.innerHTML = curiosities[index];
+                index = (index + 1) % curiosities.length;
+            }, 4000);
+        });
+    </script>
+
+    <script>
+        window.addEventListener('load', ()=> {
+            const loader = document.querySelector(".loader");
+
+            loader.classList.add("loader--hidden");
+            
+            document.addEventListener("transitionend", () => {
+                document.body.removeChild(loader);
+            });
+        
+        });
+
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6240072080745593"
+     crossorigin="anonymous"></script>
+     
+</head>
+
+<body> 
+    
+    <div class="loader"></div>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="container">
+        <div class="content">
+            <h1>RetroAI</h1>
+            <h2>A IA Generativa para colorir imagens e vídeos em preto e branco!</h2>
+
+            <div class="button-container">
+                <form action="/imagem">
+                    <button class="img-btn">Colorir Imagem 📸</button>
+                </form>
+                <form action="/video">
+                    <button class="img-btn">Colorir Vídeos 🎥</button>
+                </form>
+            </div>
+        
+            <div class="curiosity">
+                <p id="curiosity">BEM-VINDO!</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Copyright &copy; 2023 RetroAI</p>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+/* style.css */
+body {
+    background: linear-gradient(to bottom, #3D1369, #67125C);
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.content {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+
+.image-container {
+    text-align: center;
+}
+
+img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 10px; /* Ajuste esse valor para controlar o arredondamento das bordas */
+}
+
+.upload-btn {
+    margin-bottom: 10px; 
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #3D1369;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+/* Add styles for the filename */
+#filename {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.upload-btn:hover {
+    background-color: #390468;
+}
+
+.colorize-btn {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #3D1369;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.colorize-btn:hover {
+    background-color: #3D1369;
+}
+
+
+.footer {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+
+
+#upload-form{
+    margin-bottom: 20px;
+}
+
+#curiosity{
+    margin-top: 50px;
+}
+
+@media screen and (max-width: 760px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 0.9rem;
+    }
+
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    form {
+        margin: 0;
+    }
+    
+}
+
+.loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loader--hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader::after{
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px solid #fff;
+    border-top-color: #3D1369;
+    border-radius: 50%;
+    animation: loading 0.75s ease infinite
+}
+
+@keyframes loading {
+    from { transform: rotate(0turn);}
+    to { transform: rotate(1turn);}
+}
