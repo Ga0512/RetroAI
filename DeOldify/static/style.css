@@ -5,6 +5,7 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     color: #fff;
+    min-height: 100vh;
 }
 
 .container {
@@ -55,6 +56,7 @@ img {
     cursor: pointer;
     transition: background-color 0.3s;
     font-weight: bold;
+    font-weight: bold;
 }
 
 /* Add styles for the filename */
@@ -101,6 +103,28 @@ img {
 #curiosity{
     margin-top: 50px;
 }
+
+
+.loaders img{
+    width: 10%;
+    
+}
+
+.btn.btn2-primary {  
+    background-color: transparent; /* Cor cinza meio transparente */
+    color: #f0f0f0;
+    border-radius: 5px;
+    border: 2px solid gray; /* Borda cinza */
+    padding: 10px 20px; /* Espaçamento interno */
+    transition: transform 0.3s ;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.btn.btn2-primary:hover{
+    transform: scale(1.08);
+}
+
 
 @media screen and (max-width: 760px) {
     h1 {

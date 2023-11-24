@@ -1,0 +1,199 @@
+body {
+background: linear-gradient(to bottom, #3D1369, #67125C);
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    min-height: 100vh;
+    scroll-behavior: auto;
+}
+
+
+.header {
+    background-color: #fafafa; /* Cor de fundo do cabeçalho */
+    color: #3D1369; /* Cor do texto no cabeçalho */
+    padding: 10px; /* Valor menor de padding */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+h1 {
+    font-size: 36px; /* Reduzindo o tamanho do título */
+    color: #3D1369;
+    margin-bottom: 20px;
+    text-align: center; /* Centralizando o título */
+    font-weight: bold;
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 20px; /* Reduzindo o tamanho do título */
+    color: #fafafa;
+    text-align: center; /* Centralizando o título */
+}
+
+
+h3 {
+    margin-top: 20px;
+    font-size: 20px; /* Reduzindo o tamanho do título */
+    color: #fafafa;
+    font-weight: bold;
+}
+
+
+
+
+form{
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+
+.content {
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 500px;
+}
+
+.logo {
+    margin-left: 40px;
+    margin-right: 20px; /* Espaçamento entre a logo e os links */
+    margin-bottom: 5px; /* Margem entre a logo e o restante da página */
+}
+
+.header img {
+    height: 50px; /* Altura da imagem do logotipo */
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.header nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.header nav ul li a {
+    text-decoration: none;
+    color: #fff; /* Cor dos links no cabeçalho */
+    margin-left: 40px;
+}
+
+.header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+.img-btn {
+    background-color: #fff;
+    color: #3D1369;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold; 
+    margin-top: 15px;
+    margin-bottom: 5px; 
+    display: inline-block;
+    
+    
+}
+
+.img-btn:hover {
+    background-color: #883CD4;
+}
+
+
+
+.img-btn-voltar {
+    background-color: #707070;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold; 
+    margin-top: 15px; 
+    margin-bottom: 15px;
+    display: inline-block;
+    
+    
+}
+
+.img-btn:hover {
+    background-color: #883CD4;
+}
+
+
+
+
+.input-group{
+    margin-top: 10px;
+    
+}
+
+#message-form {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background-color: #883CD4; /* Cor cinza meio transparente */
+    color: #f0f0f0;
+    border-color: rgba(64, 65, 79, 0.8); /* Cor da borda cinza meio transparente */
+    margin-top: 10px;
+}
+
+.form-control{
+    margin-top: 10px;
+}
+
+
+@media screen and (max-width: 760px) {
+
+    form{
+        height: 420px;
+        width: 300px;
+    }
+}

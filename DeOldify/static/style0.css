@@ -5,21 +5,10 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     color: #fff;
-    overflow-y: scroll; /* Adicionar uma barra de rolagem vertical quando necessário */
+    min-height: 100vh;
+    scroll-behavior: auto;
 }
 
-/* Estilizar a barra de rolagem */
-body::-webkit-scrollbar {
-    width: 10px; /* Largura da barra de rolagem */
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: #888; /* Cor do thumb (alça) da barra de rolagem */
-}
-
-body::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Cor do thumb ao passar o mouse sobre ele */
-}
 
 
 .container {
@@ -27,12 +16,14 @@ body::-webkit-scrollbar-thumb:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
 }
 
 .content {
+    display: fixed;
     text-align: center;
-    margin-bottom: 10px;
+    align-items: center;
+    width: 50%; 
+    margin-top: 5%;
 }
 
 
@@ -69,8 +60,7 @@ body::-webkit-scrollbar-thumb:hover {
 img,
 source {
     border-radius: 10px;
-    max-width: 100%; /* Para garantir que as imagens não excedam a largura do container */
-    height: auto;
+    max-width: 50%; /* Para garantir que as imagens não excedam a largura do container */
 }
 
 h1 {
@@ -83,7 +73,28 @@ h2 {
     margin-bottom: 30px;
 }
 
+
+.btn.btn2-primary {  
+    background-color: transparent; /* Cor cinza meio transparente */
+    color: #f0f0f0;
+    border-radius: 5px;
+    border: 2px solid gray; /* Borda cinza */
+    padding: 10px 20px; /* Espaçamento interno */
+    transition: transform 0.3s ;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.btn.btn2-primary:hover{
+    transform: scale(1.08);
+}
+
 @media screen and (max-width: 760px) {
+
+    .content {
+        width: auto;
+    }
+
     h1 {
         font-size: 1.1rem;
         margin-bottom: 30px;
@@ -100,6 +111,14 @@ h2 {
 
     form {
         margin: 0;
+    }
+
+    .download-button{
+        padding: 5px 10px;
+    }
+
+    .btn.btn2-primary {
+        padding: 5px 10px;
     }
     
 }
@@ -136,3 +155,6 @@ h2 {
     from { transform: rotate(0turn);}
     to { transform: rotate(1turn);}
 }
+
+
+

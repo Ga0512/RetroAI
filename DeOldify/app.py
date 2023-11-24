@@ -1,12 +1,110 @@
 # app.py
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, redirect, make_response, send_file
 import os
 from lib import colorize_image, colorize_video
-from dep import rename_image, rename_video
+from dep import mover_imagem, envio
 import shutil
+import requests
+import json
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'test_images'
+confirm_login = ['']
+confirm = ['']
+
+url = 'https://retroai-803fe-default-rtdb.firebaseio.com'
+
+@app.route('/cadastro', methods=['GET', 'POST'])
+def cadastro():
+    global confirm
+
+    if request.method == 'POST':
+        email = request.form.get('user')
+        senha = request.form.get('password')
+
+        requisição = requests.get(f'{url}/usuarios/.json')
+
+        api_response = requisição.json()
+
+        found = False
+        for key, value in api_response.items():
+            if value['email'] == email:
+                found = True
+                break
+
+        if found:
+            confirm[0] = 'Email já usado'
+
+        else:
+            confirm[0] = ''
+            data = {'email': email, 'senha': senha}
+            requisição = requests.post(f'{url}/usuarios/.json', data=json.dumps(data))
+            
+            resp = make_response(redirect('/'))
+
+            resp.set_cookie('email', str(email))
+            resp.set_cookie('senha', str(senha))
+
+            return resp
+        
+
+    confi = confirm[0]
+    confirm.clear()
+    confirm = ['']
+    
+    return render_template('cadastro.html', confirm=confi)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    global confirm_login
+
+    requisição = requests.get(f'https://retroai-803fe-default-rtdb.firebaseio.com/usuarios/.json')
+
+    api_response = requisição.json()
+
+    email_cooked = request.cookies.get("email")
+    senha_cooked = request.cookies.get("senha")
+    
+    if email_cooked and senha_cooked != 'None':
+        for key, value in api_response.items():
+            if value['email'] == email_cooked and value['senha'] == senha_cooked:
+               return redirect('/')
+
+    if request.method == 'POST':
+        user = request.form.get('user')
+        senha = request.form.get('password')
+
+        requisição = requests.get(f'{url}/usuarios/.json')
+
+        api_response = requisição.json()
+
+        found = False
+        for key, value in api_response.items():
+            if value['email'] == user and value['senha'] == senha:
+                found = True
+                break
+
+        if found:
+            confirm_login[0] = ''
+            resp = make_response(redirect('/'))
+
+            resp.set_cookie('email', str(user))
+            resp.set_cookie('senha', str(senha))
+
+            return resp
+
+        else:
+            confirm_login[0] = 'Usuário não encontrado...'
+
+
+    confirma_login = confirm_login[0]
+    confirm_login.clear()
+    confirm_login = ['']
+    
+    return render_template('login.html', confirm=confirma_login)
+
 
 @app.route('/')
 def index():
@@ -15,60 +113,93 @@ def index():
 
 @app.route('/imagem', methods=['GET','POST'])
 def imagem():
-    return render_template('imagem.html')
+    requisição = requests.get(f'{url}/usuarios/.json')
+
+    api_response = requisição.json()
+
+    email_cooked = request.cookies.get("email")
+    senha_cooked = request.cookies.get("senha")
+
+    if email_cooked and senha_cooked != 'None':
+        
+        found = False
+        for key, value in api_response.items():
+            if value['email'] == email_cooked and value['senha'] == senha_cooked: 
+                found = True
+                break
+
+        if found:
+            if request.method == 'POST':
+                file = request.files['image']
+                filename = file.filename
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                colorize_image(str(filename))
+                mover_imagem('result_images', 'DeOldify/static/images', str(filename))
+                os.remove(f'test_images/{str(filename)}')
+                
+                return redirect(f'/static/images/{str(filename)}')
+            
+                
+                
+            return render_template('imagem.html')
+            
+
+        else:
+            return redirect('/login')
+
+    else:
+        return redirect('/login')
     
-@app.route('/imagemcolorida', methods=['GET','POST'])
-def imagemcolorida():
-    file = request.files['image']
-    if file:
-        filename = file.filename
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        existing_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'image.png')
-        if os.path.exists(existing_image_path):
-            os.remove(existing_image_path)
-        rename_image(f'test_images/{filename}')
-        colorize_image('image.png')
-        if os.path.exists('DeOldify/static/images/image.png'):
-            os.remove('DeOldify/static/images/image.png')
-        shutil.move('result_images/image.png', 'DeOldify/static/images/')
-    return render_template('imagemcolorida.html')
-
-
-@app.route('/download')
-def download():
-    return send_from_directory('static/images', 'image.png', as_attachment=True)
-
-
 
 app.config['UPLOAD_VIDEO'] = 'video/source'
 
 
 @app.route('/video', methods=['GET','POST'])
 def video():
-    return render_template('video.html')
+    requisição = requests.get(f'{url}/usuarios/.json')
 
+    api_response = requisição.json()
 
-@app.route('/videocolorido',  methods=['GET','POST'])
-def videocolorido():
-    file = request.files['video']
-    if file:
-        filename = file.filename
-        file.save(os.path.join(app.config['UPLOAD_VIDEO'], filename))
-        existing_image_path = os.path.join(app.config['UPLOAD_VIDEO'], 'video.mp4')
-        if os.path.exists(existing_image_path):
-            os.remove(existing_image_path)
-        rename_video(f'video/source/{filename}')
-        colorize_video('video.mp4')
-        if os.path.exists('DeOldify/static/videos/video.mp4'):
-            os.remove('DeOldify/static/videos/video.mp4')
-        shutil.move('video/result/video.mp4', 'DeOldify/static/videos/')
-    return render_template('videocolorido.html')
+    email_cooked = request.cookies.get("email")
+    senha_cooked = request.cookies.get("senha")
 
+    if email_cooked and senha_cooked != 'None':
+        
+        found = False
+        for key, value in api_response.items():
+            if value['email'] == email_cooked and value['senha'] == senha_cooked: 
+                found = True
+                break
 
+        if found:
+            if request.method == 'POST':
+                file = request.files['video']
+                filename = file.filename
+                file.save(os.path.join(app.config['UPLOAD_VIDEO'], filename))
+                colorize_video(str(filename))
+                mover_imagem('video/result', 'DeOldify/static/videos', str(filename))
+                os.remove(f'video/source/{str(filename)}')
 
-@app.route('/downloadvideo')
-def download_video():
-    return send_from_directory('static/videos', 'video.mp4', as_attachment=True)
+                corpo_email = f"""Boas notícias, seu vídeo foi colorido com sucesso! <br>
+                                Acesse, compartilhe e faça download do seu vídeo: <br>
+                                <br>
+                                <a href="https://retroai.onrender.com/static/videos/{filename}"> Acesse seu vídeo colorido aqui!</a>"""
+                               
+
+                # enviar email aqui
+                envio ("Seu vídeo está colorido! 🎨", str(email_cooked), corpo_email)
+
+                return redirect(f'/static/videos/{str(filename)}')
+                
+            
+            return render_template('video.html')
+
+        else:
+            return redirect('/login')
+
+    else:
+        return redirect('/login')
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

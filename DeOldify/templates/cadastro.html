@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>ResumoGPT</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+      <link rel="shortcut icon" href="{{ url_for('static', filename='watermark.png') }}">
+
+    </head>
+
+<body>
+    <form id="message-form" method="post">
+        <h1>Cadastro</h1>
+        <h3>Usuário</h3>
+        <input type="text" id="user" name="user" class="form-control" placeholder="Email" required>
+        <h3>Senha</h3>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Senha" required>
+        <button type="submit" class="img-btn">Entrar</button> <br>
+        <a href="/login">Já possui conta?</a>
+        <h2>{{ confirm }}</h2>
+    </form>
+</body>
+</html>

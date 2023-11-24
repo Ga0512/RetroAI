@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RetroAI - Vídeos</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='watermark.png') }}">
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
             const curiosityElement = document.getElementById('curiosity');
@@ -14,8 +15,8 @@
             "Use a RetroAI para colorir imagens! 📸🎨",
                 "Use a RetroAI para colorir vídeos! 🎥🎨",
                 "A RetroAI usa Inteligência Artificial Generativa para colorir as imagens e os vídeos.🧠🤖",
-                "Siga-nos no Instagram: @RetroAI",
-                "A IA generativa da RetroAI pinta digitalmente fotos e vídeos antigos, revitalizando memórias de épocas passadas! 🎞️🎨",
+                "A IA generativa da RetroIA pinta digitalmente fotos e vídeos antigos, <br>revitalizando memórias de épocas passadas! 🎞️🎨",
+                "Powered by Let's Tech It 🚀",
             ];
             let index = 0;
 
@@ -24,7 +25,7 @@
                 index = (index + 1) % curiosities.length;
             }, 4000);
 
-            const imageInput = document.getElementById('video-input');
+            const imageInput = document.getElementById('image-input');
             const filenameElement = document.getElementById('filename');
 
             imageInput.addEventListener('change', () => {
@@ -62,14 +63,21 @@
     <div class="loader"></div>
     <div class="container">
         <div class="content">
+            <button class="btn btn2-primary" onclick="window.location.href='/'" type="submit">Voltar</button>
             <h1>RetroAI - Vídeos</h1>
             <h2>Use a RetroAI para colorir vídeos em preto e branco 🎥</h2>
-            <form  id="upload-form" action="/videocolorido" method="POST" enctype="multipart/form-data">
-                <label for="video-input" class="upload-btn">Faça upload do arquivo 📁</label>
-                <input type="file" name="video" id="video-input" accept="video/*" style="display: none;">
-                <input type="submit" value="Colorir seu vídeo 🎨" class="colorize-btn">
+            <form id="upload-form" method="POST" enctype="multipart/form-data">
+                <input type="file" name="video" id="image-input" accept="video/*" style="display: none;" required>
+                <button class="colorize-btn upload-btn" type="button" onclick="document.getElementById('image-input').click()">Faça upload do arquivo 📁</button>
+                <button class="colorize-btn" type="submit">Colorir seu vídeo 🎨</button>
                 <span id="filename"></span>
             </form>
+
+
+            <div id="loaders" class="loaders">
+                <img src="static/loader.gif" alt="Carregando..." />
+                <p>Colorir um vídeo pode demorar um pouco às vezes... <br> Você receberá um e-mail quando estiver pronto! <br> Você pode fechar essa aba.</p>
+             </div>
             
             <div class="curiosity">
                 <p id="curiosity">RetroAI - Vídeos</p>
@@ -79,6 +87,8 @@
             <p>Copyright &copy; 2023 RetroAI</p>
         </div>
     </div>
+
+    <script src="{{ url_for('static', filename='loader.js') }}"></script>
 </body>
 
 </html>

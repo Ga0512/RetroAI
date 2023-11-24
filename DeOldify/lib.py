@@ -9,7 +9,6 @@ import torch
 import warnings
 
 def colorize_image(source, render_factor=25):
-    rename_image(f'test_images/{source}')
     #NOTE:  This must be the first call in order to work properly!
     device.set(device=DeviceId.GPU0)
     
@@ -19,7 +18,7 @@ def colorize_image(source, render_factor=25):
     
     colorizer = get_image_colorizer(artistic=True)
 
-    source_path = 'test_images/image.png'
+    source_path = f'test_images/{source}'
     result_path = colorizer.plot_transformed_image(path=source_path, render_factor=render_factor, compare=True)
     
     return result_path
@@ -40,9 +39,11 @@ def colorize_imageurl(source_url, source_path = 'test_images/image.png', render_
    
     return result_path
 
+colorize_imageurl('https://upload.wikimedia.org/wikipedia/commons/e/e4/Raceland_Louisiana_Beer_Drinkers_Russell_Lee.jpg')
+
 
 def colorize_video(file_name, render_factor=15):
-    rename_video(f'video/source/{file_name}')    
+
     #NOTE:  This must be the first call in order to work properly!
     device.set(device=DeviceId.GPU0)
     
@@ -51,7 +52,7 @@ def colorize_video(file_name, render_factor=15):
     
     colorizer = get_video_colorizer()
     
-    file_name_ext = 'video.mp4'
+    file_name_ext = file_name
     result_path = colorizer.colorize_from_file_name(file_name_ext, render_factor=render_factor)
     
     limpar_pasta('video/bwframes')

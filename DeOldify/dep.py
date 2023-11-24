@@ -1,5 +1,43 @@
 import os
 import shutil
+import smtplib
+import email.message
+
+def envio(sub, email_envio, corpo): 
+    msg = email.message.Message()
+    msg['Subject'] = str(sub)
+    msg['From'] = ''
+    msg['To'] = str(email_envio)
+    password = 'shsxrmqbwndoskvp' 
+    msg.add_header('Content-Type', 'text/html')
+    msg.set_payload(corpo)
+
+    s = smtplib.SMTP('smtp.gmail.com: 587')
+    s.starttls()
+    # Login Credentials for sending the mail
+    s.login(msg['From'], password)
+    s.sendmail(msg['From'], msg['To'], msg.as_string().encode('utf-8'))
+
+
+
+def mover_imagem(origem, destino, nome_imagem):
+    # Construa o caminho completo para a imagem de origem
+    caminho_origem = os.path.join(origem, nome_imagem)
+    
+    # Construa o caminho completo para o destino
+    caminho_destino = os.path.join(destino, nome_imagem)
+    
+    try:
+        # Move a imagem para o destino
+        shutil.move(caminho_origem, caminho_destino)
+        print(f"Imagem {nome_imagem} movida de {origem} para {destino}")
+    except FileNotFoundError:
+        print(f"A imagem {nome_imagem} não foi encontrada em {origem}")
+    except PermissionError:
+        print(f"Permissão negada para mover a imagem {nome_imagem}")
+
+
+
 
 def rename_video(video_path, new_video_name='video.mp4'):
     video_dir, video_file = os.path.split(video_path)
